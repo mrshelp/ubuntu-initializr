@@ -2,9 +2,11 @@
 
 set -e
 
+source /etc/os-release
 source commons/utils.sh
 source install_nala.sh
 source install_whiptail.sh
+source install_repositories.sh
 source commons/install_nvm.sh
 source install_software.sh
 source install_node.sh #todo
@@ -22,6 +24,7 @@ check_permissions
 check_install_nala
 check_install_whiptail
 
+check_install_repos
 install_software
 check_install_nvm
 check_install_node #todo
