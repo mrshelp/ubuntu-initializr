@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -e
+
+source commons/utils.sh
+source install_nala.sh
+source install_whiptail.sh
+source commons/install_nvm.sh
+source install_software.sh
+source install_node.sh #todo
+source commons/install_npm.sh
+source commons/install_tldr.sh
+source commons/install_lsp_servers.sh
+source commons/install_npm_symlinks.sh
+source commons/install_docker_config.sh
+source commons/install_oxker.sh
+source commons/install_dry.sh
+source commons/install_git_config.sh
+source commons/install_chezmoi_repo.sh
+
+check_permissions
+check_install_nala
+check_install_whiptail
+
+install_software
+check_install_nvm
+check_install_node #todo
+check_install_npm
+check_install_tldr
+check_install_lsp_servers
+check_install_npm_symlinks
+check_install_docker_config
+check_install_oxker
+check_install_dry
+check_install_git_config
+check_install_chezmoi_repo
+
+whiptail --title "$DIALOG_TITLE" --msgbox "Ubuntu successfully initialized, you might need to restart your system." 7 77
