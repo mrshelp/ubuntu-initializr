@@ -32,6 +32,6 @@ in_software() {
     telnet
 }
 
-#todo: chezmoi, lazydocker
+#todo: chezmoi
 
 install_software() { install 'Software' $IM_INF in_software; }

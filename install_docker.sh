@@ -9,15 +9,20 @@ chk_docker_keyring() {
   test -s "${DOCKER_KEYRING}" && test "${stat:7:1}" == 'r'
 }
 
+chk_docker_repo() {
+  local docker_repo_escaped=$(echo "${DOCKER_REPO}" | sed "s/\[/\\\[/g;s/\]/\\\]/g")
+  local contains=$(cat "${DOCKER_SOURCES_LIST}" 2> /dev/null | grep -q "${docker_repo_escaped}" && echo 1 || echo 0)
+  [[ -s "${DOCKER_SOURCES_LIST}" && ${contains} = 1 ]]
+}
+
+chk_docker() { chk_cmd docker; }
+
+chk_lazydocker() { chk_cmd lazydocker; }
+
 in_docker_keyring() {
   sudo install -m 0755 -d /etc/apt/keyrings
   sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o "${DOCKER_KEYRING}"
   sudo chmod a+r "${DOCKER_KEYRING}"
-}
-
-chk_docker_repo() {
-  local contains=$(cat "${DOCKER_SOURCES_LIST}" | grep -q "${DOCKER_REPO}" 2> /dev/null && echo 1 || echo 0)
-  [[ -s "${DOCKER_SOURCES_LIST}" && ${contains} = 1 ]]
 }
 
 in_docker_repo() {
@@ -25,12 +30,23 @@ in_docker_repo() {
   sudo nala update
 }
 
-chk_docker() { chk_cmd docker; }
+in_docker() {
+  sudo nala install --assume-yes --simple --update \
+    docker-ce \
+    docker-ce-cli \
+    containerd.io \
+    docker-buildx-plugin \
+    docker-compose-plugin
+}
 
-in_docker() { sudo nala install --assume-yes --simple --update docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin; }
+in_lazydocker() {
+  curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+  sudo mv ~/.local/bin/lazydocker /usr/local/bin/
+}
 
 check_install_docker() {
   check_install 'Docker keyring' $IM_ERR chk_docker_keyring in_docker_keyring;
   check_install 'Docker repo' $IM_ERR chk_docker_repo in_docker_repo;
   check_install 'Docker' $IM_ERR chk_docker in_docker;
+  check_install 'Lazydocker' $IM_ERR chk_lazydocker in_lazydocker;
 }
