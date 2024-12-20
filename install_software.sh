@@ -1,9 +1,7 @@
 #!/bin/bash
 
-#todo
 in_software() {
-  sudo nala update --verbose
-  sudo nala install --assume-yes --verbose \
+  sudo nala install --assume-yes --simple --update \
     ttf-mscorefonts-installer \
     trash-cli \
     hyfetch \

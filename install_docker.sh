@@ -22,15 +22,12 @@ chk_docker_repo() {
 
 in_docker_repo() {
   echo "${DOCKER_REPO}" | sudo tee "${DOCKER_SOURCES_LIST}" > /dev/null
-  sudo nala update --verbose
+  sudo nala update
 }
 
 chk_docker() { chk_cmd docker; }
 
-in_docker() {
-  sudo nala update --verbose
-  sudo nala install --assume-yes --verbose docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-}
+in_docker() { sudo nala install --assume-yes --simple --update docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin; }
 
 check_install_docker() {
   check_install 'Docker keyring' $IM_ERR chk_docker_keyring in_docker_keyring;
