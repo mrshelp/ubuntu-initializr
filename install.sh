@@ -17,7 +17,9 @@ source install_docker.sh
 source commons/install_docker_config.sh
 source commons/install_oxker.sh
 source commons/install_dry.sh
-source commons/install_git_config.sh
+source commons/install_git_config.sh # todo - not common script anymore, see:
+# https://gist.github.com/JonasGroeger/4393203cc846da558fec1531cdd822db
+# https://gist.github.com/maelvls/79d49740ce9208c26d6a1b10b0d95b5e
 # source install_chezmoi.sh
 # source commons/install_chezmoi_repo.sh
 
@@ -33,9 +35,9 @@ check_install_tldr
 check_install_lsp_servers
 check_install_npm_symlinks
 check_install_docker
-#check_install_docker_config
-#check_install_oxker
-#check_install_dry
+check_install_docker_config
+check_install_oxker
+check_install_dry
 #check_install_git_config
 # check_install_chezmoi_repo #todo: chezmoi
 
