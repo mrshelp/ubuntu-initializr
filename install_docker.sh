@@ -17,7 +17,7 @@ chk_docker_repo() {
 
 chk_docker() { chk_cmd docker; }
 
-chk_lazydocker() { chk_cmd lazydocker; }
+chk_lazydocker() { chk_cmd lazydocker || test -s ~/.local/bin/lazydocker || test -s /usr/local/bin/lazydocker; }
 
 in_docker_keyring() {
   sudo install -m 0755 -d /etc/apt/keyrings
