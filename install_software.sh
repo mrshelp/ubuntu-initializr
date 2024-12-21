@@ -7,7 +7,6 @@ in_software() {
     hyfetch \
     fastfetch \
     lsd \
-    thefuck \
     zoxide \
     git \
     git-credential-oauth \

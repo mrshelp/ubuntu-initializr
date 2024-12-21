@@ -8,6 +8,7 @@ source install_core_apps.sh
 source install_repositories.sh
 source commons/install_nvm.sh
 source install_software.sh
+source install_thefuck.sh
 source install_node.sh
 source commons/install_npm.sh
 source commons/install_tldr.sh
@@ -26,6 +27,7 @@ check_install_core_apps
 
 check_install_repos
 install_software
+check_install_thefuck
 check_install_nvm
 check_install_node
 check_install_npm
