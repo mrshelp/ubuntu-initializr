@@ -23,8 +23,8 @@ in_git_helper() {
 }
 
 in_git_config() {
-  git config --global credential.helper "${GIT_CRED_DIR}/${GIT_CRED}"
-  git config --global user.name "$GIT_USER"
+  git config --global --replace-all credential.helper "${GIT_CRED_DIR}/${GIT_CRED}"
+  git config --global --replace-all user.name "$GIT_USER"
 }
 
 check_install_git_config() {
