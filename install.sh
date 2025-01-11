@@ -5,6 +5,7 @@ set -e
 source /etc/os-release
 source commons/utils.sh
 source install_core_apps.sh
+#source install_snap_begone.sh
 source install_repositories.sh
 source commons/install_nvm.sh
 source install_software.sh
@@ -25,6 +26,7 @@ source commons/install_chezmoi_repo.sh
 check_permissions
 check_install_core_apps
 
+#check_install_snap_begone
 check_install_repos
 install_software
 check_install_thefuck
