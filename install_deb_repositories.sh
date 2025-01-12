@@ -1,11 +1,5 @@
 #!/bin/bash
 
-#TODO: remove
-CMD_REFRESH='sudo nala update'
-set -e
-source /etc/os-release
-source commons/utils.sh
-
 ESC_SPACE='%SPACE%'
 KEYRINGS_DIR=/etc/apt/keyrings
 SOURCES_DIR=/etc/apt/sources.list.d
@@ -55,7 +49,6 @@ check_install_deb_repo() {
 }
 
 check_install_deb_repos() {
-  #TODO:/etc/apt/keyrings/ var
   check_install_deb_repo \
     'https://download.docker.com/linux/ubuntu/gpg' \
     'docker.asc' \
@@ -69,20 +62,3 @@ check_install_deb_repos() {
     'Floorp.list' \
     "https://ppa.floorp.app/\$(ARCH) ./"
 }
-
-DEV_remove() {
-  for FILE in \
-    /etc/apt/sources.list.d/Floorp.list \
-    /etc/apt/keyrings/Floorp.gpg \
-    /usr/share/keyrings/Floorp.gpg \
-    /etc/apt/sources.list.d/docker.list \
-    /etc/apt/keyrings/docker.asc \
-    /usr/share/keyrings/docker.asc
-  do
-    test -f ${FILE} && sudo rm ${FILE}
-  done
-  sudo nala update
-}
-
-check_install_deb_repos
-#DEV_remove

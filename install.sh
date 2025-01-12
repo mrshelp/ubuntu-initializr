@@ -2,15 +2,17 @@
 
 set -e
 
-CMD_REFRESH='sudo nala update'
-CMD_INSTALL='sudo nala install --update --assume-yes --simple'
-CMD_REMOVE='sudo nala remove --purge --assume-yes --simple'
+CMD_PM='sudo nala'
+CMD_REFRESH="${CMD_PM} update"
+CMD_INSTALL="${CMD_PM} install --update --assume-yes --simple"
+CMD_REMOVE="${CMD_PM} remove --purge --assume-yes --simple"
 
 source /etc/os-release
 source commons/utils.sh
 source install_core_apps.sh
 source install_snap_begone.sh
 source install_repositories.sh
+source install_deb_repositories.sh
 source commons/install_nvm.sh
 source install_software.sh
 source install_thefuck.sh
@@ -19,7 +21,7 @@ source commons/install_npm.sh
 source commons/install_tldr.sh
 source commons/install_lsp_servers.sh
 source commons/install_npm_symlinks.sh
-source install_docker.sh
+source install_lazydocker.sh
 source commons/install_docker_config.sh
 source commons/install_oxker.sh
 source commons/install_dry.sh
@@ -32,6 +34,7 @@ check_install_core_apps
 
 check_install_snap_begone
 check_install_repos
+check_install_deb_repos
 install_software
 check_install_thefuck
 check_install_nvm
@@ -40,7 +43,7 @@ check_install_npm
 check_install_tldr
 check_install_lsp_servers
 check_install_npm_symlinks
-check_install_docker
+check_install_lazydocker
 check_install_docker_config
 check_install_oxker
 check_install_dry

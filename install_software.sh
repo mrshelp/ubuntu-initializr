@@ -6,6 +6,11 @@ in_software() {
     trash-cli \
     hyfetch \
     fastfetch \
+    docker-ce \
+    docker-ce-cli \
+    containerd.io \
+    docker-buildx-plugin \
+    docker-compose-plugin \
     lsd \
     zoxide \
     git \
