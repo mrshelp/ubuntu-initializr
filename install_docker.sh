@@ -45,8 +45,8 @@ in_lazydocker() {
 }
 
 check_install_docker() {
-  check_install 'Docker keyring' $IM_ERR chk_docker_keyring in_docker_keyring;
-  check_install 'Docker repo' $IM_ERR chk_docker_repo in_docker_repo;
-  check_install 'Docker' $IM_ERR chk_docker in_docker;
-  check_install 'Lazydocker' $IM_ERR chk_lazydocker in_lazydocker;
+  check_install 'docker keyring' $IM_ERR chk_docker_keyring in_docker_keyring;
+  check_install 'docker repo' $IM_ERR chk_docker_repo in_docker_repo;
+  check_install 'docker' $IM_ERR chk_docker in_docker;
+  check_install 'lazydocker' $IM_ERR chk_lazydocker in_lazydocker;
 }

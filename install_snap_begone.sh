@@ -14,23 +14,24 @@ in_snap_begone() {
       sudo snap remove --purge ${PACKAGE}
     done
     for SEARCH in \
+      thunderbird \
       snap-store \
       gnome \
       gtk-common-themes \
       snapd-desktop-integration \
       bare \
-      thunderbird \
-      firmware-updater \
-      core
+      firmware-updater
     do
       for PACKAGE in $(snap list | sed 1,1d | grep ${SEARCH} | awk '{print $1}'); do
         sudo snap remove --purge ${PACKAGE}
       done
     done
-    for PACKAGE in $(snap list | sed 1,1d | grep -v snapd | awk '{print $1}'); do
+    for PACKAGE in $(snap list | sed 1,1d | grep -v 'core\|snapd' | awk '{print $1}'); do
       sudo snap remove --purge ${PACKAGE}
     done
-    sudo snap remove --purge snapd
+    for PACKAGE in core snapd; do
+      sudo snap remove --purge ${PACKAGE}
+    done
     sudo nala remove --assume-yes --simple --autoremove snapd
   fi
   for FILE in ${PREF_FILE} ${MOZ_FILE}; do
