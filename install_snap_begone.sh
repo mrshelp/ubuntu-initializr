@@ -29,8 +29,10 @@ in_snap_begone() {
     for PACKAGE in $(snap list | sed 1,1d | grep -v 'core\|snapd' | awk '{print $1}'); do
       sudo snap remove --purge ${PACKAGE}
     done
-    for PACKAGE in core snapd; do
-      sudo snap remove --purge ${PACKAGE}
+    for SEARCH in core snapd; do
+      for PACKAGE in $(snap list | sed 1,1d | grep ${SEARCH} | awk '{print $1}'); do
+        sudo snap remove --purge ${PACKAGE}
+      done
     done
     ${CMD_REMOVE} snapd
   fi
