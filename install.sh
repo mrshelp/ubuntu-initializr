@@ -2,6 +2,10 @@
 
 set -e
 
+CMD_REFRESH='sudo nala update'
+CMD_INSTALL='sudo nala install --update --assume-yes --simple'
+CMD_REMOVE='sudo nala remove --purge --assume-yes --simple'
+
 source /etc/os-release
 source commons/utils.sh
 source install_core_apps.sh

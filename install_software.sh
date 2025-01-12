@@ -1,7 +1,7 @@
 #!/bin/bash
 
 in_software() {
-  sudo nala install --assume-yes --simple --update \
+  ${CMD_INSTALL} \
     ttf-mscorefonts-installer \
     trash-cli \
     hyfetch \

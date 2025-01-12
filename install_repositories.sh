@@ -3,7 +3,7 @@
 in_repo() {
   local uri=$1
   sudo add-apt-repository --yes "$uri"
-  sudo nala update
+  ${CMD_REFRESH}
 }
 
 check_install_repo() {

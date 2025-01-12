@@ -14,7 +14,7 @@ in_node() {
 
 check_install_node() {
   if nala list --installed | grep nodejs; then
-    sudo nala remove --assume-yes --simple nodejs
+    ${CMD_REMOVE} nodejs
   fi
   check_install 'node' $IM_ERR chk_node in_node
 }

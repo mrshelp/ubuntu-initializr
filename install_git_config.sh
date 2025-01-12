@@ -13,7 +13,7 @@ chk_git_config() {
 }
 
 in_git_helper() {
-  sudo nala install --assume-yes --simple --update \
+  ${CMD_INSTALL} \
     make \
     gcc \
     libsecret-1-0 \

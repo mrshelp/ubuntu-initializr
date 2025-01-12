@@ -32,14 +32,14 @@ in_snap_begone() {
     for PACKAGE in core snapd; do
       sudo snap remove --purge ${PACKAGE}
     done
-    sudo nala remove --assume-yes --simple --autoremove snapd
+    ${CMD_REMOVE} snapd
   fi
   for FILE in ${PREF_FILE} ${MOZ_FILE}; do
     if [ ! -f "${PREF_PATH}${FILE}" ]; then
       sudo cp -v ${FILE} ${PREF_PATH}
     fi
   done
-  sudo nala update
+  ${CMD_REFRESH}
 }
 
 check_install_snap_begone() {

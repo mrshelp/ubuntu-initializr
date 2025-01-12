@@ -27,11 +27,11 @@ in_docker_keyring() {
 
 in_docker_repo() {
   echo "${DOCKER_REPO}" | sudo tee "${DOCKER_SOURCES_LIST}" > /dev/null
-  sudo nala update
+  ${CMD_REFRESH}
 }
 
 in_docker() {
-  sudo nala install --assume-yes --simple --update \
+  ${CMD_INSTALL} \
     docker-ce \
     docker-ce-cli \
     containerd.io \
