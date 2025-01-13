@@ -3,16 +3,18 @@
 MOZ_FILE=mozillateamppa
 PREF_FILE=nosnap.pref
 PREF_PATH=/etc/apt/preferences.d/
+CMD_SNAPREM='sudo snap remove --purge'
 
-chk_snap_begone() {
-  ! chk_cmd snap && test -f "${PREF_PATH}${PREF_FILE}" && test -f "${PREF_PATH}${MOZ_FILE}"
+chk_snap_begone() { ! chk_cmd snap && test -f "${PREF_PATH}${PREF_FILE}" && test -f "${PREF_PATH}${MOZ_FILE}"; }
+
+snap_list() {
+  local grep_cmd=$1
+  snap list | sed 1,1d | ${grep_cmd} | awk '{print $1}'
 }
 
 in_snap_begone() {
   if chk_cmd snap ; then
-    for PACKAGE in $(snap list | sed 1,1d | grep -v canonical | awk '{print $1}'); do
-      sudo snap remove --purge ${PACKAGE}
-    done
+    for PACKAGE in $(snap_list 'grep -v canonical'); do ${CMD_SNAPREM} ${PACKAGE}; done
     for SEARCH in \
       thunderbird \
       snap-store \
@@ -22,17 +24,14 @@ in_snap_begone() {
       bare \
       firmware-updater
     do
-      for PACKAGE in $(snap list | sed 1,1d | grep ${SEARCH} | awk '{print $1}'); do
-        sudo snap remove --purge ${PACKAGE}
-      done
+      for PACKAGE in $(snap_list "grep ${SEARCH}"); do ${CMD_SNAPREM} ${PACKAGE}; done
     done
-    for PACKAGE in $(snap list | sed 1,1d | grep -v 'core\|snapd' | awk '{print $1}'); do
-      sudo snap remove --purge ${PACKAGE}
-    done
-    for SEARCH in core snapd; do
-      for PACKAGE in $(snap list | sed 1,1d | grep ${SEARCH} | awk '{print $1}'); do
-        sudo snap remove --purge ${PACKAGE}
-      done
+    for PACKAGE in $(snap_list "grep -v 'core\|snapd'"); do ${CMD_SNAPREM} ${PACKAGE}; done
+    for SEARCH in \
+      core \
+      snapd
+    do
+      for PACKAGE in $(snap_list "grep ${SEARCH}"); do ${CMD_SNAPREM} ${PACKAGE}; done
     done
     ${CMD_REMOVE} snapd
   fi
@@ -45,5 +44,5 @@ in_snap_begone() {
 }
 
 check_install_snap_begone() {
-  check_install 'snap-begone' $IM_ERR chk_snap_begone in_snap_begone
+  check_install 'snap begone' $IM_ERR chk_snap_begone in_snap_begone
 }

@@ -36,6 +36,4 @@ in_software() {
     telnet
 }
 
-#todo: chezmoi
-
 install_software() { install 'Software' $IM_INF in_software; }
