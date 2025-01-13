@@ -26,7 +26,7 @@ in_snap_begone() {
     do
       for PACKAGE in $(snap_list "grep ${SEARCH}"); do ${CMD_SNAPREM} ${PACKAGE}; done
     done
-    for PACKAGE in $(snap_list "grep -v 'core\|snapd'"); do ${CMD_SNAPREM} ${PACKAGE}; done
+    for PACKAGE in $(snap_list 'grep -v core\|snapd'); do ${CMD_SNAPREM} ${PACKAGE}; done
     for SEARCH in \
       core \
       snapd
