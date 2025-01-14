@@ -8,7 +8,7 @@ CMD_INSTALL="${CMD_PM} install --update --assume-yes --simple"
 CMD_REMOVE="${CMD_PM} remove --purge --assume-yes --simple"
 
 source /etc/os-release
-source commons/utils.sh
+source commons/utils.sh "$@"
 source install_core_apps.sh
 source install_snap_begone.sh
 source install_repositories.sh
