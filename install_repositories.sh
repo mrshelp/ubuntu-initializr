@@ -23,9 +23,7 @@ check_install_repo() {
 check_install_builtin_repo() {
   local repo=$1
   echo_b "Checking if $repo repo is installed..."
-  local apt_repos=$(cat "${SOURCES_DIR}/ubuntu.sources" | grep -v '#' | grep Components)
-  local nala_repos=$(cat "${SOURCES_DIR}/nala-sources.list" | grep deb)
-  local repos="${apt_repos}${nala_repos}"
+  local repos=$(cat "${SOURCES_DIR}/ubuntu.sources" | grep -v '#' | grep Components)
   if [ "$(echo $repos | wc -l)" == "$(echo $repos | grep $repo | wc -l)" ]; then
     echo_g "$repo repo is already installed.\n"
   else
@@ -42,12 +40,11 @@ check_install_repos() {
     REPO_USER="${REPO_MAP[$REPO_NAME]}"
     check_install_repo "$REPO_USER" "$REPO_NAME"
   done
-  #TODO: doesn't work as axpected (yet...)
-#  for REPO_NAME in \
-#    universe \
-#    multiverse \
-#    restricted
-#  do
-#    check_install_builtin_repo "$REPO_NAME"
-#  done
+  for REPO_NAME in \
+    universe \
+    multiverse \
+    restricted
+  do
+    check_install_builtin_repo "$REPO_NAME"
+  done
 }
