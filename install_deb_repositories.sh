@@ -31,6 +31,7 @@ in_deb_repo() {
   fi
   sudo chmod a+r "${KEYRINGS_DIR}/${keyring}"
   echo "deb [arch=$(dpkg --print-architecture) signed-by=${KEYRINGS_DIR}/${keyring}] ${repo}" | sudo tee "${SOURCES_DIR}/${sources}" > /dev/null
+  ${CMD_APTREF}
   ${CMD_REFRESH}
 }
 

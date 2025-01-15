@@ -4,8 +4,8 @@ chk_nala() { chk_cmd nala; }
 chk_core_apps() { chk_cmd curl && chk_cmd whiptail; }
 
 in_nala() {
-  sudo apt-get -qq update
-  sudo apt-get -qq install nala
+  ${CMD_APTREF}
+  ${CMD_APT} install nala
   ${CMD_PM} fetch --auto --https-only --country PL --country CZ
 }
 in_core_apps() { ${CMD_INSTALL} curl whiptail; }

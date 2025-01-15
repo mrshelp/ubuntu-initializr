@@ -2,6 +2,8 @@
 
 set -e
 
+CMD_APT='sudo apt-get -qq'
+CMD_APTREF="${CMD_APT} update"
 CMD_PM='sudo nala'
 CMD_REFRESH="${CMD_PM} update"
 CMD_INSTALL="${CMD_PM} install --update --assume-yes --simple"

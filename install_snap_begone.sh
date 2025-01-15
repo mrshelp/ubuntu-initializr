@@ -40,6 +40,7 @@ in_snap_begone() {
       sudo cp -v ${FILE} ${PREF_PATH}
     fi
   done
+  ${CMD_APTREF}
   ${CMD_REFRESH}
 }
 
