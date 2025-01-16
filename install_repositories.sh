@@ -5,7 +5,6 @@ SOURCES_DIR=/etc/apt/sources.list.d
 in_repo() {
   local uri=$1
   sudo add-apt-repository --yes "$uri"
-  ${CMD_APTREF}
   ${CMD_REFRESH}
 }
 

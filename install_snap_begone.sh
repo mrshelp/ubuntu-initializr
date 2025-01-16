@@ -1,11 +1,12 @@
 #!/bin/bash
 
+SYSTEMD_PATH=/usr/lib/systemd/system
 MOZ_FILE=mozillateamppa
 PREF_FILE=nosnap.pref
 PREF_PATH=/etc/apt/preferences.d/
 CMD_SNAPREM='sudo snap remove --purge'
 
-chk_snap_begone() { ! chk_cmd snap && test -f "${PREF_PATH}${PREF_FILE}" && test -f "${PREF_PATH}${MOZ_FILE}"; }
+chk_snap_begone() { ! ls -l ${SYSTEMD_PATH} | grep -q snapd && ! chk_cmd snap && test -f "${PREF_PATH}${PREF_FILE}" && test -f "${PREF_PATH}${MOZ_FILE}"; }
 
 snap_list() {
   local grep_cmd=$1
@@ -13,6 +14,11 @@ snap_list() {
 }
 
 in_snap_begone() {
+  if ls -l ${SYSTEMD_PATH} | grep -q snapd; then
+    for SERVICE in socket service seeded.service; do
+      sudo systemctl disable "snapd.${SERVICE}"
+    done
+  fi
   if chk_cmd snap ; then
     for PACKAGE in $(snap_list 'grep -v canonical'); do ${CMD_SNAPREM} ${PACKAGE}; done
     for SEARCH in \
@@ -40,7 +46,6 @@ in_snap_begone() {
       sudo cp -v ${FILE} ${PREF_PATH}
     fi
   done
-  ${CMD_APTREF}
   ${CMD_REFRESH}
 }
 
