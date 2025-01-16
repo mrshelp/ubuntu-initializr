@@ -1,10 +1,13 @@
 #!/bin/bash
 
-chk_lazydocker() { chk_cmd lazydocker || test -s ~/.local/bin/lazydocker || test -s /usr/local/bin/lazydocker; }
+HOMEBIN_PATH="$HOME/.local/bin/lazydocker"
+USERBIN_DIR=/usr/local/bin
+
+chk_lazydocker() { chk_cmd lazydocker || test -s $HOMEBIN_PATH || test -s $USERBIN_DIR/lazydocker; }
 
 in_lazydocker() {
   curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
-  sudo mv ~/.local/bin/lazydocker /usr/local/bin/
+  sudo mv $HOMEBIN_PATH $USERBIN_DIR/
 }
 
 check_install_lazydocker() {

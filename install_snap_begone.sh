@@ -6,7 +6,12 @@ PREF_FILE=nosnap.pref
 PREF_PATH=/etc/apt/preferences.d/
 CMD_SNAPREM='sudo snap remove --purge'
 
-chk_snap_begone() { ! ls -l ${SYSTEMD_PATH} | grep -q snapd && ! chk_cmd snap && test -f "${PREF_PATH}${PREF_FILE}" && test -f "${PREF_PATH}${MOZ_FILE}"; }
+chk_snap_begone() {
+  ! ls -l ${SYSTEMD_PATH} | grep -q snapd \
+    && ! chk_cmd snap \
+    && test -f "${PREF_PATH}${PREF_FILE}" \
+    && test -f "${PREF_PATH}${MOZ_FILE}"
+}
 
 snap_list() {
   local grep_cmd=$1

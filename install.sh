@@ -11,6 +11,7 @@ source /etc/os-release
 source commons/utils.sh "$@"
 source install_core_apps.sh
 source install_snap_begone.sh
+source install_debloat.sh
 source install_repositories.sh
 source install_deb_repositories.sh
 source commons/install_nvm.sh
@@ -33,6 +34,7 @@ check_permissions
 check_install_core_apps
 
 check_install_snap_begone
+install_debloat
 check_install_repos
 check_install_deb_repos
 install_software
