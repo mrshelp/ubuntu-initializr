@@ -8,7 +8,6 @@ chk_gnome() { [[ ! "${INSTALL_GNOME}" =~ ^(y|yes)$ ]]; }
 GSETTING=org.gnome.desktop
 in_gnome() {
   ${CMD_INSTALL} \
-    qgnomeplatform-qt5 \
     gnome-{session,backgrounds,tweaks,shell-extension-manager} \
     fonts-cantarell \
     adwaita-icon-theme \
