@@ -10,6 +10,4 @@ in_lazydocker() {
   sudo mv $HOMEBIN_PATH $USERBIN_DIR/
 }
 
-check_install_lazydocker() {
-  check_install 'lazydocker' $IM_ERR chk_lazydocker in_lazydocker;
-}
+check_install_lazydocker() { check_install 'lazydocker' $IM_ERR chk_lazydocker in_lazydocker; }

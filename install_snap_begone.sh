@@ -54,6 +54,4 @@ in_snap_begone() {
   ${CMD_REFRESH}
 }
 
-check_install_snap_begone() {
-  check_install 'snap begone' $IM_ERR chk_snap_begone in_snap_begone
-}
+check_install_snap_begone() { check_install 'snap begone' $IM_ERR chk_snap_begone in_snap_begone; }

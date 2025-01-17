@@ -11,8 +11,7 @@ in_git_helper() {
   ${CMD_INSTALL} \
     make \
     gcc \
-    libsecret-1-0 \
-    libsecret-1-dev \
+    libsecret-{1-0,1-dev} \
     libglib2.0-dev
   sudo make --directory="${GIT_CRED_DIR}"
 }

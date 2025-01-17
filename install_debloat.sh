@@ -3,10 +3,7 @@
 in_debloat() {
   ${CMD_REMOVE} \
     aisleriot \
-    gnome-mahjongg \
-    gnome-mines \
-    gnome-sudoku \
-    gnome-software-plugin-snap \
+    gnome-{mahjongg,mines,sudoku,software-plugin-snap} \
     ubuntu-report \
     apport \
     apport-gtk \

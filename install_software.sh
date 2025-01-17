@@ -33,7 +33,8 @@ in_software() {
     whiptail \
     openssh-{client,server} \
     xz-utils \
-    telnet
+    telnet \
+    dbus-x11
 }
 
 install_software() { install 'Software' $IM_INF in_software; }
