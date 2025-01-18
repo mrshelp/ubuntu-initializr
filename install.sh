@@ -29,7 +29,6 @@ source commons/install_dry.sh
 source install_git_config.sh
 source install_chezmoi.sh
 source commons/install_chezmoi_repo.sh
-# source install_gnome.sh # doesn't work
 
 check_permissions
 check_install_core_apps
@@ -53,6 +52,5 @@ check_install_dry
 check_install_git_config
 check_install_chezmoi
 check_install_chezmoi_repo
-# check_install_gnome doesn't work
 
 echo_g "Ubuntu successfully initialized, you might need to restart your system."
