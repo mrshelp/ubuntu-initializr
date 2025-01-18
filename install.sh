@@ -9,14 +9,16 @@ CMD_REMOVE="${CMD_PM} remove --purge --assume-yes --simple"
 
 source /etc/os-release
 source commons/utils.sh "$@"
+
 source install_core_apps.sh
 source install_snap_begone.sh
 source install_debloat.sh
 source install_repositories.sh
 source install_deb_repositories.sh
-source commons/install_nvm.sh
+source install_codecs.sh
 source install_software.sh
 source install_thefuck.sh
+source commons/install_nvm.sh
 source install_node.sh
 source commons/install_npm.sh
 source commons/install_tldr.sh
@@ -37,6 +39,7 @@ check_install_snap_begone
 install_debloat
 check_install_repos
 check_install_deb_repos
+install_codecs
 install_software
 check_install_thefuck
 check_install_nvm
