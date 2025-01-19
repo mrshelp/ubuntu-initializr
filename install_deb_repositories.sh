@@ -23,6 +23,7 @@ in_deb_repo() {
   local dearmor=$3
   local sources=$4
   local repo=$(unescape "$5")
+  local additional_archs=$([ -n "$6" ] && echo ",$6" || echo '')
   sudo install -m 0755 -d "${KEYRINGS_DIR}"
   if [ "${dearmor}" = 'true' ]; then
     curl -fsSL "${url}" | sudo gpg --dearmor -o "${KEYRINGS_DIR}/${keyring}"
@@ -30,7 +31,7 @@ in_deb_repo() {
     sudo curl -fsSL "${url}" -o "${KEYRINGS_DIR}/${keyring}"
   fi
   sudo chmod a+r "${KEYRINGS_DIR}/${keyring}"
-  echo "deb [arch=$(dpkg --print-architecture) signed-by=${KEYRINGS_DIR}/${keyring}] ${repo}" | sudo tee "${SOURCES_DIR}/${sources}" > /dev/null
+  echo "deb [arch=$(dpkg --print-architecture)${additional_archs} signed-by=${KEYRINGS_DIR}/${keyring}] ${repo}" | sudo tee "${SOURCES_DIR}/${sources}" > /dev/null
   ${CMD_REFRESH}
 }
 
@@ -40,9 +41,10 @@ check_install_deb_repo() {
   local dearmor=$3
   local sources=$4
   local repo=$5
+  local additional_archs=${6:-}
   echo_b "Checking if ${sources} repo is installed..."
   if ! chk_deb_repo "${keyring}" "${sources}" "${repo}"; then
-    install "${sources} repo" $IM_ERR in_deb_repo "${url} ${keyring} ${dearmor} ${sources} $(escape "${repo}")"
+    install "${sources} repo" $IM_ERR in_deb_repo "${url} ${keyring} ${dearmor} ${sources} $(escape "${repo}") ${additional_archs}"
   else
     echo_g "${sources} repo is already installed.\n"
   fi
@@ -61,4 +63,14 @@ check_install_deb_repos() {
     true \
     'Floorp.list' \
     "https://ppa.floorp.app/\$(ARCH) ./"
+  if ! dpkg --print-foreign-architectures | grep -q i386; then
+    sudo dpkg --add-architecture i386
+  fi
+  check_install_deb_repo \
+    'https://dl.winehq.org/wine-builds/winehq.key' \
+    'winehq-archive.key' \
+    true \
+    "winehq-${UBUNTU_CODENAME}.list" \
+    "https://dl.winehq.org/wine-builds/ubuntu ${UBUNTU_CODENAME} main" \
+    'i386'
 }
