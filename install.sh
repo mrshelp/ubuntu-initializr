@@ -5,6 +5,7 @@ set -e
 LTS22=22.04
 LTS24=24.04
 
+source /etc/os-release
 CMD_PM='sudo nala'
 CMD_REFRESH="${CMD_PM} update"
 CMD_INSTALL="${CMD_PM} install --update --assume-yes"
@@ -15,7 +16,6 @@ case "${VERSION_ID}" in
   *) ;;
 esac
 
-source /etc/os-release
 source commons/utils.sh "$@"
 case "${VERSION_ID}" in
   "${LTS22}") ;;
