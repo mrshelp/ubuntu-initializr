@@ -2,13 +2,20 @@
 
 set -e
 
+LTS22=22.04
+LTS24=24.04
+
 CMD_PM='sudo nala'
 CMD_REFRESH="${CMD_PM} update"
-CMD_INSTALL="${CMD_PM} install --update --assume-yes --simple"
-CMD_REMOVE="${CMD_PM} remove --purge --assume-yes --simple"
+CMD_INSTALL="${CMD_PM} install --update --assume-yes"
+CMD_REMOVE="${CMD_PM} remove --purge --assume-yes"
 
 source /etc/os-release
 source commons/utils.sh "$@"
+if [[ ! "${VERSION_ID}" == "${LTS22}" && ! "${VERSION_ID}" == "${LTS24}" ]]; then
+  echo_r "Only ${LTS22} and ${LTS24} versions of Ubuntu are supported."
+  echo
+fi
 
 source install_core_apps.sh
 source install_snap_begone.sh

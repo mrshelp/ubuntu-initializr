@@ -16,8 +16,10 @@ in_debloat() {
     kmahjongg \
     kpat \
     kdeconnect \
-    konversation \
-    neochat
+    konversation
+  if [ "${VERSION_ID}" == "${LTS24}" ]; then
+    ${CMD_REMOVE} neochat
+  fi
 }
 
 install_debloat() { install 'debloat' $IM_INF in_debloat; }
