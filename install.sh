@@ -9,6 +9,11 @@ CMD_PM='sudo nala'
 CMD_REFRESH="${CMD_PM} update"
 CMD_INSTALL="${CMD_PM} install --update --assume-yes"
 CMD_REMOVE="${CMD_PM} remove --purge --assume-yes"
+CMD_PIPIN='pip3 install --upgrade'
+case "${VERSION_ID}" in
+  "${LTS24}") CMD_PIPIN="${CMD_PIPIN} --break-system-packages" ;;
+  *) ;;
+esac
 
 source /etc/os-release
 source commons/utils.sh "$@"

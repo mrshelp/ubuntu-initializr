@@ -32,7 +32,16 @@ in_software() {
     xz-utils \
     telnet \
     dbus-x11
+  local lsd_version=1.1.5
+  local lsd_file="lsd_${lsd_version}_amd64_xz.deb"
   case "${VERSION_ID}" in
+    "${LTS22}")
+      ${CMD_INSTALL} python3-dev python3-pip python3-setuptools
+      ${CMD_PIPIN} wheel hyfetch
+      wget --quiet "https://github.com/lsd-rs/lsd/releases/download/v${lsd_version}/${lsd_file}"
+      sudo dpkg --install "${lsd_file}"
+      rm "${lsd_file}"
+      ;;
     "${LTS24}") ${CMD_INSTALL} git-credential-oauth hyfetch lsd ;;
     *) ;;
   esac
