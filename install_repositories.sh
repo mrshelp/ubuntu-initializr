@@ -46,6 +46,7 @@ check_install_repos() {
   declare -A REPO_MAP=(
     ['fastfetch']='zhangsongcui3371'
     ['ppa']='mozillateam'
+    ['apps']='xtradeb'
   )
   for REPO_NAME in "${!REPO_MAP[@]}"; do
     REPO_USER="${REPO_MAP[$REPO_NAME]}"
