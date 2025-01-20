@@ -32,12 +32,10 @@ in_software() {
     xz-utils \
     telnet \
     dbus-x11
-  if [ "${VERSION_ID}" == "${LTS24}" ]; then
-    ${CMD_INSTALL} \
-      git-credential-oauth \
-      hyfetch \
-      lsd
-  fi
+  case "${VERSION_ID}" in
+    "${LTS24}") ${CMD_INSTALL} git-credential-oauth hyfetch lsd ;;
+    *) ;;
+  esac
 }
 
 install_software() { install 'Software' $IM_INF in_software; }

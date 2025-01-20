@@ -12,10 +12,11 @@ CMD_REMOVE="${CMD_PM} remove --purge --assume-yes"
 
 source /etc/os-release
 source commons/utils.sh "$@"
-if [[ ! "${VERSION_ID}" == "${LTS22}" && ! "${VERSION_ID}" == "${LTS24}" ]]; then
-  echo_r "Only ${LTS22} and ${LTS24} versions of Ubuntu are supported."
-  echo
-fi
+case "${VERSION_ID}" in
+  "${LTS22}") ;;
+  "${LTS24}") ;;
+  *) echo_r "Only ${LTS22} and ${LTS24} versions of Ubuntu are supported." && exit 1 ;;
+esac
 
 source install_core_apps.sh
 source install_snap_begone.sh
