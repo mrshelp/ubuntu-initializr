@@ -8,11 +8,16 @@ LTS24=24.04
 source /etc/os-release
 CMD_PM='sudo nala'
 CMD_REFRESH="${CMD_PM} update"
+CMD_SEARCH="${CMD_PM} list --installed"
 CMD_INSTALL="${CMD_PM} install --update --assume-yes"
 CMD_REMOVE="${CMD_PM} remove --purge --assume-yes"
 CMD_PIPIN='pip3 install --upgrade'
 case "${VERSION_ID}" in
-  "${LTS24}") CMD_PIPIN="${CMD_PIPIN} --break-system-packages" ;;
+  "${LTS24}")
+    CMD_INSTALL="${CMD_INSTALL} --simple"
+    CMD_REMOVE="${CMD_REMOVE} --simple"
+    CMD_PIPIN="${CMD_PIPIN} --break-system-packages"
+    ;;
   *) ;;
 esac
 

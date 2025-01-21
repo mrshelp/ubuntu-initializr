@@ -13,7 +13,7 @@ in_node() {
 }
 
 check_install_node() {
-  if nala list --installed | grep nodejs; then
+  if ${CMD_SEARCH} nodejs | grep nodejs; then
     ${CMD_REMOVE} nodejs
   fi
   check_install 'node' $IM_ERR chk_node in_node
