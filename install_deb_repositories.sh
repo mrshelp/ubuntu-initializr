@@ -52,11 +52,11 @@ check_install_deb_repo() {
 
 check_install_deb_repos() {
   check_install_deb_repo \
-    'https://download.docker.com/linux/ubuntu/gpg' \
+    "https://download.docker.com/linux/${ID}/gpg" \
     'docker.asc' \
     false \
     'docker.list' \
-    "https://download.docker.com/linux/ubuntu ${UBUNTU_CODENAME} stable"
+    "https://download.docker.com/linux/${ID} ${VERSION_CODENAME} stable"
   check_install_deb_repo \
     'https://ppa.floorp.app/KEY.gpg' \
     'Floorp.gpg' \
@@ -70,7 +70,7 @@ check_install_deb_repos() {
     'https://dl.winehq.org/wine-builds/winehq.key' \
     'winehq-archive.key' \
     true \
-    "winehq-${UBUNTU_CODENAME}.list" \
-    "https://dl.winehq.org/wine-builds/ubuntu ${UBUNTU_CODENAME} main" \
+    "winehq-${VERSION_CODENAME}.list" \
+    "https://dl.winehq.org/wine-builds/${ID} ${VERSION_CODENAME} main" \
     'i386'
 }

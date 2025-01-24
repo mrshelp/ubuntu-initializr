@@ -19,7 +19,7 @@ check_install_repo() {
     "${LTS24}") extension=sources ;;
     *) ;;
   esac
-  if [ ! -s "${SOURCES_DIR}/$user-ubuntu-$repo-${UBUNTU_CODENAME}.${extension}" ]; then
+  if [ ! -s "${SOURCES_DIR}/$user-${ID}-$repo-${VERSION_CODENAME}.${extension}" ]; then
     install "$user/$repo repo" $IM_ERR in_repo "ppa:$user/$repo"
   else
     echo_g "$repo repo is already installed.\n"
@@ -32,7 +32,7 @@ check_install_builtin_repo() {
   local repos=
   case "${VERSION_ID}" in
     "${LTS22}") repos=$(cat "${APT_DIR}/sources.list" | grep -v '#' | grep deb) ;;
-    "${LTS24}") repos=$(cat "${SOURCES_DIR}/ubuntu.sources" | grep -v '#' | grep Components) ;;
+    "${LTS24}") repos=$(cat "${SOURCES_DIR}/${ID}.sources" | grep -v '#' | grep Components) ;;
     *) ;;
   esac
   if [ "$(echo $repos | wc -l)" == "$(echo $repos | grep $repo | wc -l)" ]; then
