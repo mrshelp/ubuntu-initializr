@@ -34,7 +34,8 @@ in_software() {
     dbus-x11 \
     python3-dev \
     python3-pip \
-    python3-setuptools
+    python3-setuptools \
+    cifs-utils
   local lsd_version=1.1.5
   local lsd_file="lsd_${lsd_version}_amd64_xz.deb"
   case "${VERSION_ID}" in
