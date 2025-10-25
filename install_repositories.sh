@@ -1,8 +1,5 @@
 #!/bin/bash
 
-APT_DIR=/etc/apt
-SOURCES_DIR="${APT_DIR}/sources.list.d"
-
 in_repo() {
   local uri=$1
   sudo add-apt-repository --yes "$uri"
@@ -15,10 +12,9 @@ check_install_repo() {
   local extension=
   case "${VERSION_ID}" in
     "${LTS22}") extension=list ;;
-    "${LTS24}") extension=sources ;;
-    *) ;;
+    *) extension=sources ;;
   esac
-  if [ ! -s "${SOURCES_DIR}/$user-${ID}-$repo-${VERSION_CODENAME}.${extension}" ]; then
+  if [ ! -s "${APT_SOURCES_LIST}/$user-${ID}-$repo-${VERSION_CODENAME}.${extension}" ]; then
     install "$user/$repo repo" $IM_ERR in_repo "ppa:$user/$repo"
   else
     echo_g "$repo repo is already installed.\n"
@@ -30,9 +26,8 @@ check_install_builtin_repo() {
   echo_b "Checking if $repo repo is installed..."
   local repos=
   case "${VERSION_ID}" in
-    "${LTS22}") repos=$(cat "${APT_DIR}/sources.list" | grep -v '#' | grep deb) ;;
-    "${LTS24}") repos=$(cat "${SOURCES_DIR}/${ID}.sources" | grep -v '#' | grep Components) ;;
-    *) ;;
+    "${LTS22}") repos=$(cat "${APT_SOURCES}" | grep -v '#' | grep deb) ;;
+    *) repos=$(cat "${APT_SOURCES_LIST}/${ID}.sources" | grep -v '#' | grep Components) ;;
   esac
   if [ "$(echo $repos | wc -l)" == "$(echo $repos | grep $repo | wc -l)" ]; then
     echo_g "$repo repo is already installed.\n"

@@ -1,8 +1,6 @@
 #!/bin/bash
 
 ESC_SPACE='%SPACE%'
-KEYRINGS_DIR=/etc/apt/keyrings
-SOURCES_DIR=/etc/apt/sources.list.d
 
 escape() { echo "$1" | sed "s/\ /${ESC_SPACE}/g"; }
 unescape() { echo "$1" | sed "s/${ESC_SPACE}/\ /g"; }
@@ -11,10 +9,10 @@ chk_deb_repo() {
   local keyring=$1
   local sources=$2
   local repo=$3
-  local stat=$(stat -c %A "${KEYRINGS_DIR}/${keyring}" 2> /dev/null)
+  local stat=$(stat -c %A "${APT_KEYRINGS}/${keyring}" 2> /dev/null)
   local repo_escaped=$(echo "${repo}" | sed "s/\[/\\\[/g;s/\]/\\\]/g")
-  local contains=$(cat "${SOURCES_DIR}/${sources}" 2> /dev/null | grep -q "${repo_escaped}" && echo 1 || echo 0)
-  [[ -s "${KEYRINGS_DIR}/${keyring}" && "${stat:7:1}" == 'r' && -s "${SOURCES_DIR}/${sources}" && ${contains} = 1 ]]
+  local contains=$(cat "${APT_SOURCES_LIST}/${sources}" 2> /dev/null | grep -q "${repo_escaped}" && echo 1 || echo 0)
+  [[ -s "${APT_KEYRINGS}/${keyring}" && "${stat:7:1}" == 'r' && -s "${APT_SOURCES_LIST}/${sources}" && ${contains} = 1 ]]
 }
 
 in_deb_repo() {
@@ -24,14 +22,14 @@ in_deb_repo() {
   local sources=$4
   local repo=$(unescape "$5")
   local additional_archs=$([ -n "$6" ] && echo ",$6" || echo '')
-  sudo install -m 0755 -d "${KEYRINGS_DIR}"
+  sudo install -m 0755 -d "${APT_KEYRINGS}"
   if [ "${dearmor}" = 'true' ]; then
-    curl -fsSL "${url}" | sudo gpg --dearmor -o "${KEYRINGS_DIR}/${keyring}"
+    curl -fsSL "${url}" | sudo gpg --dearmor -o "${APT_KEYRINGS}/${keyring}"
   else
-    sudo curl -fsSL "${url}" -o "${KEYRINGS_DIR}/${keyring}"
+    sudo curl -fsSL "${url}" -o "${APT_KEYRINGS}/${keyring}"
   fi
-  sudo chmod a+r "${KEYRINGS_DIR}/${keyring}"
-  echo "deb [arch=$(dpkg --print-architecture)${additional_archs} signed-by=${KEYRINGS_DIR}/${keyring}] ${repo}" | sudo tee "${SOURCES_DIR}/${sources}" > /dev/null
+  sudo chmod a+r "${APT_KEYRINGS}/${keyring}"
+  echo "deb [arch=$(dpkg --print-architecture)${additional_archs} signed-by=${APT_KEYRINGS}/${keyring}] ${repo}" | sudo tee "${APT_SOURCES_LIST}/${sources}" > /dev/null
   ${CMD_REFRESH}
 }
 
@@ -57,12 +55,6 @@ check_install_deb_repos() {
     false \
     'docker.list' \
     "https://download.docker.com/linux/${ID} ${VERSION_CODENAME} stable"
-  check_install_deb_repo \
-    'https://ppa.floorp.app/KEY.gpg' \
-    'Floorp.gpg' \
-    true \
-    'Floorp.list' \
-    "https://ppa.floorp.app/\$(ARCH) ./"
   if ! dpkg --print-foreign-architectures | grep -q i386; then
     sudo dpkg --add-architecture i386
   fi

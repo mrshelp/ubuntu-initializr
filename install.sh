@@ -6,25 +6,26 @@ LTS22=22.04
 LTS24=24.04
 
 source /etc/os-release
-CMD_PM='sudo nala'
+CMD_PM='sudo apt-get'
 CMD_REFRESH="${CMD_PM} update"
-CMD_SEARCH="${CMD_PM} list --installed"
-CMD_INSTALL="${CMD_PM} install --update --assume-yes"
-CMD_REMOVE="${CMD_PM} remove --purge --assume-yes"
+CMD_SEARCH="dpkg --get-selections"
+CMD_INSTALL="${CMD_PM} install --assume-yes --fix-broken --fix-missing"
+CMD_REMOVE="${CMD_PM} remove --assume-yes --purge --auto-remove"
 CMD_PIPIN='pip3 install --upgrade'
 case "${VERSION_ID}" in
-  "${LTS24}")
-    CMD_INSTALL="${CMD_INSTALL} --simple"
-    CMD_REMOVE="${CMD_REMOVE} --simple"
-    CMD_PIPIN="${CMD_PIPIN} --break-system-packages"
-    ;;
-  *) ;;
+  "${LTS22}") ;;
+  *) CMD_PIPIN="${CMD_PIPIN} --break-system-packages" ;;
 esac
+
+APT_PATH=/etc/apt
+APT_SOURCES="${APT_PATH}/sources.list"
+APT_SOURCES_LIST="${APT_SOURCES}.d"
+APT_PREFERENCES="${APT_PATH}/preferences.d"
+APT_KEYRINGS="${APT_PATH}/keyrings"
 
 source commons/utils.sh "$@"
 case "${VERSION_ID}" in
-  "${LTS22}") ;;
-  "${LTS24}") ;;
+  "${LTS22}"|"${LTS24}") ;;
   *) echo_r "Only ${LTS22} and ${LTS24} versions of Ubuntu are supported." && exit 1 ;;
 esac
 

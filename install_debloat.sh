@@ -18,8 +18,8 @@ in_debloat() {
     kdeconnect \
     konversation
   case "${VERSION_ID}" in
-    "${LTS24}") ${CMD_REMOVE} neochat ;;
-    *) ;;
+    "${LTS22}") ;;
+    *) ${CMD_REMOVE} neochat ;;
   esac
 }
 

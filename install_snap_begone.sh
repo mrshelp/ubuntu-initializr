@@ -3,14 +3,13 @@
 SYSTEMD_PATH=/usr/lib/systemd/system
 MOZ_FILE=mozillateamppa
 PREF_FILE=nosnap.pref
-PREF_PATH=/etc/apt/preferences.d/
 CMD_SNAPREM='sudo snap remove --purge'
 
 chk_snap_begone() {
   ! ls -l ${SYSTEMD_PATH} | grep -q snapd \
     && ! chk_cmd snap \
-    && test -f "${PREF_PATH}${PREF_FILE}" \
-    && test -f "${PREF_PATH}${MOZ_FILE}"
+    && test -f "${APT_PREFERENCES}/${PREF_FILE}" \
+    && test -f "${APT_PREFERENCES}/${MOZ_FILE}"
 }
 
 snap_list() {
@@ -47,8 +46,8 @@ in_snap_begone() {
     ${CMD_REMOVE} snapd
   fi
   for FILE in ${PREF_FILE} ${MOZ_FILE}; do
-    if [ ! -f "${PREF_PATH}${FILE}" ]; then
-      sudo cp -v ${FILE} ${PREF_PATH}
+    if [ ! -f "${APT_PREFERENCES}/${FILE}" ]; then
+      sudo cp -v ${FILE} ${APT_PREFERENCES}/
     fi
   done
   ${CMD_REFRESH}

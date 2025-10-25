@@ -13,7 +13,7 @@ in_node() {
 }
 
 check_install_node() {
-  if ${CMD_SEARCH} nodejs | grep nodejs; then
+  if ${CMD_SEARCH} | grep -v deinstall | grep nodejs; then
     ${CMD_REMOVE} nodejs
   fi
   check_install 'node' $IM_ERR chk_node in_node

@@ -45,8 +45,7 @@ in_software() {
       sudo dpkg --install "${lsd_file}"
       rm "${lsd_file}"
       ;;
-    "${LTS24}") ${CMD_INSTALL} git-credential-oauth hyfetch lsd ;;
-    *) ;;
+    *) ${CMD_INSTALL} git-credential-oauth hyfetch lsd ;;
   esac
 }
 
