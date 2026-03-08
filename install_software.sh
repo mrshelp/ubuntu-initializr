@@ -41,7 +41,7 @@ in_software() {
     gdu \
     uchardet \
     fakeroot
-  local lsd_version=1.1.5
+  local lsd_version=1.2.0
   local lsd_file="lsd_${lsd_version}_amd64_xz.deb"
   case "${VERSION_ID}" in
     "${LTS22}")
