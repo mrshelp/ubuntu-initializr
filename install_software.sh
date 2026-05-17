@@ -40,7 +40,8 @@ in_software() {
     ncdu \
     gdu \
     uchardet \
-    fakeroot
+    fakeroot \
+    rocminfo
   local lsd_version=1.2.0
   local lsd_file="lsd_${lsd_version}_amd64_xz.deb"
   case "${VERSION_ID}" in

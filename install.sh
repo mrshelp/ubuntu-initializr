@@ -4,6 +4,7 @@ set -e
 
 LTS22=22.04
 LTS24=24.04
+LTS26=26.04
 
 source /etc/os-release
 CMD_PM='sudo apt-get'
@@ -25,7 +26,7 @@ APT_KEYRINGS="${APT_PATH}/keyrings"
 
 source commons/utils.sh "$@"
 case "${VERSION_ID}" in
-  "${LTS22}"|"${LTS24}") ;;
+  "${LTS22}"|"${LTS24}"|"${LTS26}") ;;
   *) echo_r "Only ${LTS22} and ${LTS24} versions of Ubuntu are supported." && exit 1 ;;
 esac
 

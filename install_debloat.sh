@@ -16,7 +16,8 @@ in_debloat() {
     kmahjongg \
     kpat \
     kdeconnect \
-    konversation
+    konversation \
+    update-manager
   case "${VERSION_ID}" in
     "${LTS22}") ;;
     *) ${CMD_REMOVE} neochat ;;
