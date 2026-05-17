@@ -27,7 +27,7 @@ APT_KEYRINGS="${APT_PATH}/keyrings"
 source commons/utils.sh "$@"
 case "${VERSION_ID}" in
   "${LTS22}"|"${LTS24}"|"${LTS26}") ;;
-  *) echo_r "Only ${LTS22} and ${LTS24} versions of Ubuntu are supported." && exit 1 ;;
+  *) echo_r "Only ${LTS22}, ${LTS24} and ${LTS26} versions of Ubuntu are supported." && exit 1 ;;
 esac
 
 source install_core_apps.sh
